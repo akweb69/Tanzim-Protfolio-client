@@ -20,7 +20,6 @@ const ManagePublications = () => {
     const baseUrl = import.meta.env.VITE_BASE_URL;
     const imgbbApiKey = import.meta.env.VITE_IMGBB_API_KEY;
 
-    // Fetch all publications on component mount
     useEffect(() => {
         fetchPublications();
     }, []);
@@ -35,18 +34,15 @@ const ManagePublications = () => {
         }
     };
 
-    // Handle form input changes
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setFormData((prev) => ({ ...prev, [name]: value }));
     };
 
-    // Handle image file selection
     const handleImageChange = (e) => {
         setImageFile(e.target.files[0]);
     };
 
-    // Upload image to ImgBB
     const uploadImage = async () => {
         if (!imageFile) return null;
         try {
@@ -64,7 +60,6 @@ const ManagePublications = () => {
         }
     };
 
-    // Handle form submission (add or update publication)
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
@@ -83,11 +78,10 @@ const ManagePublications = () => {
             const publicationData = {
                 ...formData,
                 thumbnail: thumbnailUrl || formData.thumbnail,
-                year: formData.year || new Date().toISOString().split("T")[0], // Default to today if year is empty
+                year: formData.year || new Date().toISOString().split("T")[0],
             };
 
             if (editingId) {
-                // Update publication
                 const response = await axios.patch(
                     `${baseUrl}/update_publication/${editingId}`,
                     publicationData
@@ -100,20 +94,17 @@ const ManagePublications = () => {
                     );
                 }
             } else {
-                // Add new publication
                 const response = await axios.post(
                     `${baseUrl}/add_publication`,
                     publicationData
                 );
-                // Use the insertedId and publicationData to update the frontend state
                 const newPublication = {
-                    _id: response.data.insertedId, // Use insertedId from response
+                    _id: response.data.insertedId,
                     ...publicationData,
                 };
                 setPublications([newPublication, ...publications]);
             }
 
-            // Reset form
             setFormData({
                 title: "",
                 subtitle: "",
@@ -131,7 +122,6 @@ const ManagePublications = () => {
         }
     };
 
-    // Handle edit button click
     const handleEdit = (pub) => {
         setFormData({
             title: pub.title,
@@ -143,7 +133,6 @@ const ManagePublications = () => {
         setEditingId(pub._id);
     };
 
-    // Handle delete publication
     const deletePublication = async (id) => {
         try {
             const response = await axios.delete(`${baseUrl}/delete_publication/${id}`);
@@ -157,18 +146,21 @@ const ManagePublications = () => {
     };
 
     return (
-        <section className="p-4 md:p-8 bg-[rgba(0,0,0,0.1)] backdrop-blur-xs rounded-lg overflow-y-scroll max-h-screen">
+        <section className="p-4 md:p-8 bg-gradient-to-br from-indigo-900 via-indigo-800 to-indigo-950 min-h-screen rounded-lg">
             <motion.h1
-                className="text-3xl font-bold text-white mb-8"
+                className="text-3xl md:text-4xl font-bold text-indigo-100 mb-8 text-center"
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
             >
                 Manage Publications
             </motion.h1>
 
-            {/* Form for adding/editing publications */}
-            <form onSubmit={handleSubmit} className="mb-8 bg-white p-6 rounded-lg shadow">
-                <h2 className="text-2xl font-semibold mb-4">
+            {/* Form */}
+            <form
+                onSubmit={handleSubmit}
+                className="mb-8 bg-white p-6 md:p-8 rounded-2xl shadow-xl max-w-4xl mx-auto"
+            >
+                <h2 className="text-2xl font-semibold text-indigo-700 mb-4">
                     {editingId ? "Edit Publication" : "Add New Publication"}
                 </h2>
                 {error && <p className="text-red-600 mb-4">{error}</p>}
@@ -179,7 +171,7 @@ const ManagePublications = () => {
                         value={formData.title}
                         onChange={handleInputChange}
                         placeholder="Title"
-                        className="p-2 border rounded"
+                        className="p-3 border border-indigo-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
                         required
                     />
                     <input
@@ -188,14 +180,14 @@ const ManagePublications = () => {
                         value={formData.subtitle}
                         onChange={handleInputChange}
                         placeholder="Subtitle"
-                        className="p-2 border rounded"
+                        className="p-3 border border-indigo-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
                     />
                     <textarea
                         name="description"
                         value={formData.description}
                         onChange={handleInputChange}
                         placeholder="Description"
-                        className="p-2 border rounded col-span-2"
+                        className="p-3 border border-indigo-300 rounded-lg col-span-1 md:col-span-2 focus:ring-2 focus:ring-indigo-500"
                         rows="4"
                     />
                     <input
@@ -203,57 +195,78 @@ const ManagePublications = () => {
                         name="year"
                         value={formData.year}
                         onChange={handleInputChange}
-                        className="p-2 border rounded"
+                        className="p-3 border border-indigo-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
                     />
                     <input
                         type="file"
                         accept="image/*"
                         onChange={handleImageChange}
-                        className="p-2 border rounded"
+                        className="p-3 border border-indigo-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
                     />
                 </div>
-                <button
-                    type="submit"
-                    className="mt-4 bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-800"
-                    disabled={loading}
-                >
-                    {loading ? "Saving..." : editingId ? "Update Publication" : "Add Publication"}
-                </button>
-                {editingId && (
+                <div className="mt-6 flex flex-wrap gap-4">
                     <button
-                        type="button"
-                        onClick={() => {
-                            setFormData({ title: "", subtitle: "", description: "", year: "", thumbnail: "" });
-                            setEditingId(null);
-                            setImageFile(null);
-                        }}
-                        className="mt-4 ml-4 bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600"
+                        type="submit"
+                        className="bg-indigo-600 text-white px-6 py-2 rounded-lg shadow hover:bg-indigo-700 transition"
+                        disabled={loading}
                     >
-                        Cancel
+                        {loading
+                            ? "Saving..."
+                            : editingId
+                                ? "Update Publication"
+                                : "Add Publication"}
                     </button>
-                )}
+                    {editingId && (
+                        <button
+                            type="button"
+                            onClick={() => {
+                                setFormData({
+                                    title: "",
+                                    subtitle: "",
+                                    description: "",
+                                    year: "",
+                                    thumbnail: "",
+                                });
+                                setEditingId(null);
+                                setImageFile(null);
+                            }}
+                            className="bg-gray-500 text-white px-6 py-2 rounded-lg shadow hover:bg-gray-600 transition"
+                        >
+                            Cancel
+                        </button>
+                    )}
+                </div>
             </form>
 
-            {/* Publications Table */}
-            <div className="overflow-x-auto bg-white rounded-lg shadow">
+            {/* Table */}
+            <div className="overflow-x-auto bg-white rounded-2xl shadow-xl max-w-6xl mx-auto">
                 <table className="w-full table-auto">
-                    <thead className="bg-blue-700 text-white">
+                    <thead className="bg-indigo-700 text-white text-left">
                         <tr>
-                            <th className="px-4 py-2">Title</th>
-                            <th className="px-4 py-2">Year</th>
-                            <th className="px-4 py-2">Actions</th>
+                            <th className="px-4 py-3">Title</th>
+                            <th className="px-4 py-3">Year</th>
+                            <th className="px-4 py-3">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
                         {publications.map((pub) => (
-                            <tr key={pub._id} className="text-gray-700 border-b hover:bg-gray-50">
-                                <td className="px-4 py-2">{pub.title}</td>
-                                <td className="px-4 py-2">{pub.year}</td>
-                                <td className="px-4 py-2 flex gap-4">
-                                    <button onClick={() => handleEdit(pub)} className="text-blue-700">
+                            <tr
+                                key={pub._id}
+                                className="text-gray-700 border-b hover:bg-indigo-50 transition"
+                            >
+                                <td className="px-4 py-3">{pub.title}</td>
+                                <td className="px-4 py-3">{pub.year}</td>
+                                <td className="px-4 py-3 flex gap-4">
+                                    <button
+                                        onClick={() => handleEdit(pub)}
+                                        className="text-indigo-600 hover:text-indigo-800"
+                                    >
                                         <FaEdit />
                                     </button>
-                                    <button onClick={() => deletePublication(pub._id)} className="text-red-600">
+                                    <button
+                                        onClick={() => deletePublication(pub._id)}
+                                        className="text-red-600 hover:text-red-800"
+                                    >
                                         <FaTrash />
                                     </button>
                                 </td>

@@ -71,7 +71,7 @@ const Publications = () => {
                                     {pub.subtitle || "No subtitle available"}
                                 </h4>
                                 <p className="text-gray-400 text-sm mb-4 line-clamp-3">
-                                    {pub.description || "No description available"}
+                                    {pub.description.slice(0, 50) + " ..." || "No description available"}
                                 </p>
                                 <p className="text-gray-500 text-xs mb-4">{pub.year}</p>
                                 <Link
