@@ -24,6 +24,7 @@ import ManageCertificatesAndTraining from "../admin/ManageCerticatesAndTraining"
 import ManagementExperience from "../admin/ManagementExperience";
 import ManageLeadership from "../admin/ManageLeadership";
 import ManageSkills from "../admin/ManageSkills";
+import ManageEducation from "../admin/ManageEducation";
 
 const router = createBrowserRouter([
     {
@@ -58,6 +59,7 @@ const router = createBrowserRouter([
             { path: "experience", element: <ManagementExperience /> },
             { path: "leadership", element: <ManageLeadership /> },
             { path: "skills", element: <ManageSkills /> },
+            { path: "education", element: <ManageEducation /> },
         ],
     },
 ]);

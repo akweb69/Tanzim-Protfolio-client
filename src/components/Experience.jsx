@@ -39,7 +39,7 @@ const Experience = () => {
     }, []);
 
     return (
-        <section className="py-10 bg-gradient-to-br from-gray-950 to-indigo-900 flex flex-col">
+        <section className="py-10 bg-gradient-to-tr from-gray-950 to-indigo-900 flex flex-col">
             <div className="w-11/12 mx-auto py-12 sm:py-16 flex-1">
                 <motion.h1
                     className="text-3xl sm:text-4xl md:text-5xl font-bold text-center text-white mb-8 md:mb-12"

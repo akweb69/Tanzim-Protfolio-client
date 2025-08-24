@@ -29,7 +29,7 @@ const Publications = () => {
     }, [baseUrl]);
 
     return (
-        <section id="publications" className="py-20 bg-gradient-to-br from-gray-950 to-indigo-900">
+        <section id="publications" className="py-20 bg-gradient-to-tr from-gray-950 to-indigo-900">
             <motion.div
                 className="w-11/12 mx-auto text-center"
                 initial={{ opacity: 0, y: 50 }}

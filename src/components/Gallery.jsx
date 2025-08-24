@@ -27,7 +27,7 @@ const Gallery = () => {
     }, []);
 
     return (
-        <section id="gallery" className="py-20 bg-gradient-to-tr from-gray-950 to-indigo-900">
+        <section id="gallery" className="py-20 bg-gradient-to-br from-gray-950 to-indigo-900">
             <motion.div
                 className="w-11/12 mx-auto text-center"
                 initial={{ opacity: 0, y: 40 }}

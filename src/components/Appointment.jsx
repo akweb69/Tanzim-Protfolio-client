@@ -70,7 +70,7 @@ const Appointment = () => {
     };
 
     return (
-        <section id="appointment" className="min-h-screen bg-gradient-to-tr from-gray-950 to-indigo-900 py-20">
+        <section id="appointment" className="min-h-screen bg-gradient-to-br from-gray-950 to-indigo-900 py-20">
             <div className="w-11/12 mx-auto grid md:grid-cols-2 gap-10">
                 {/* Left Side */}
                 <motion.div

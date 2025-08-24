@@ -89,6 +89,15 @@ const AdminLayout = () => {
                         </li>
                         <li>
                             <Link
+                                to="/admin/education"
+                                className="block py-2 px-4 rounded hover:bg-indigo-800 transition-colors"
+                                onClick={() => setIsSidebarOpen(false)}
+                            >
+                                Manage Education
+                            </Link>
+                        </li>
+                        <li>
+                            <Link
                                 to="/admin/reviews"
                                 className="block py-2 px-4 rounded hover:bg-indigo-800 transition-colors"
                                 onClick={() => setIsSidebarOpen(false)}

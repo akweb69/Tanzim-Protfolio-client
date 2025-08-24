@@ -3,54 +3,38 @@ import { useState, useEffect } from "react";
 import { FaGraduationCap, FaTools } from "react-icons/fa";
 import axios from "axios";
 
-const education = [
-    {
-        level: "University",
-        name: "Bangabandhu Sheikh Mujibur Rahman Science & Technology University",
-        location: "Gopalganj, Bangladesh",
-        year: "2018 - 2022",
-    },
-    {
-        level: "College",
-        name: "Ansar VDP School And College",
-        location: "Gazipur, Bangladesh",
-        year: "2016 - 2018",
-    },
-    {
-        level: "School",
-        name: "Ansar VDP School",
-        location: "Gazipur, Bangladesh",
-        year: "2010 - 2016",
-    },
-];
-
 const About = () => {
     const [skills, setSkills] = useState([]);
+    const [education, setEducation] = useState([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
 
     const baseUrl = import.meta.env.VITE_BASE_URL;
 
     useEffect(() => {
-        const fetchSkills = async () => {
+        const fetchData = async () => {
             setLoading(true);
             try {
-                const response = await axios.get(`${baseUrl}/skills`);
-                setSkills(response.data);
+                const [skillsResponse, educationResponse] = await Promise.all([
+                    axios.get(`${baseUrl}/skills`),
+                    axios.get(`${baseUrl}/education`),
+                ]);
+                setSkills(skillsResponse.data);
+                setEducation(educationResponse.data);
             } catch (err) {
-                setError("Failed to fetch skills.");
+                setError("Failed to fetch data.");
                 console.error(err);
             } finally {
                 setLoading(false);
             }
         };
-        fetchSkills();
+        fetchData();
     }, []);
 
     return (
         <section
             id="about"
-            className="py-12 sm:py-16 bg-gradient-to-br from-gray-950 to-indigo-900 min-h-[100vh] flex flex-col text-white"
+            className="py-12 sm:py-16 bg-gradient-to-br from-gray-950 to-indigo-900  flex flex-col text-white"
         >
             <motion.div
                 className="w-11/12 mx-auto flex-1"
@@ -83,7 +67,7 @@ const About = () => {
 
                 {error && <p className="text-red-600 text-center mb-4">{error}</p>}
                 {loading ? (
-                    <p className="text-white text-center flex-1 flex items-center justify-center">Loading skills...</p>
+                    <p className="text-white text-center flex-1 flex items-center justify-center">Loading data...</p>
                 ) : (
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12">
                         {/* Education Section */}
@@ -102,17 +86,24 @@ const About = () => {
                                 <div className="absolute left-2 top-0 h-full w-1 bg-cyan-400/30"></div>
                                 {education.map((edu, i) => (
                                     <motion.div
-                                        key={i}
+                                        key={edu._id || i}
                                         className="mb-6 relative"
                                         initial={{ opacity: 0, x: -20 }}
                                         whileInView={{ opacity: 1, x: 0 }}
                                         transition={{ duration: 0.5, delay: i * 0.2 }}
                                     >
                                         <div className="absolute left-[-14px] top-2 w-3 h-3 bg-cyan-400 rounded-full"></div>
-                                        <h4 className="text-base sm:text-lg font-semibold text-cyan-300">{edu.level}</h4>
-                                        <p className="text-gray-200 text-sm sm:text-base">{edu.name}</p>
-                                        <p className="text-gray-400 text-xs sm:text-sm">{edu.location}</p>
-                                        <p className="text-gray-500 text-xs sm:text-sm">{edu.year}</p>
+                                        <h4 className="text-base sm:text-lg font-semibold text-cyan-300"> Degree: {edu.level}</h4>
+                                        <p className="text-gray-200 text-sm sm:text-base">
+                                            Institute: {edu?.name}</p>
+                                        <p className="text-gray-400 text-xs sm:text-sm">
+                                            Location: {edu?.location}</p>
+                                        <p className="text-gray-500 text-xs sm:text-sm">
+                                            Year: {edu?.year}</p>
+                                        <p className="text-gray-500 text-xs sm:text-sm">GPA: {edu?.gpa}</p>
+                                        {edu.description && (
+                                            <p className="text-gray-600 text-xs sm:text-sm mt-1"> Description: {edu?.description}</p>
+                                        )}
                                     </motion.div>
                                 ))}
                             </div>
@@ -142,10 +133,10 @@ const About = () => {
                                         <div className="flex justify-between mb-2">
                                             <span className="text-gray-200 font-medium text-sm sm:text-base">{skill.name}</span>
                                             <span className="text-gray-400 text-xs sm:text-sm">{skill.level}%</span>
-
                                         </div>
-                                        <p className="text-xs pb-2">{skill?.description}</p>
-
+                                        {skill.description && (
+                                            <p className="text-gray-600 text-xs pb-2">{skill.description}</p>
+                                        )}
                                         <div className="w-full bg-gray-700/50 rounded-full h-2.5 overflow-hidden">
                                             <motion.div
                                                 initial={{ width: 0 }}
@@ -154,7 +145,6 @@ const About = () => {
                                                 className="h-full bg-gradient-to-r from-cyan-400 to-purple-500 rounded-full"
                                             />
                                         </div>
-
                                     </motion.div>
                                 ))}
                             </div>

@@ -27,7 +27,7 @@ const Reviews = () => {
     }, []);
 
     return (
-        <section id="reviews" className="py-12 sm:py-16 bg-gradient-to-br from-gray-950 to-indigo-900 text-white  flex flex-col">
+        <section id="reviews" className="py-12 sm:py-16 bg-gradient-to-tr from-gray-950 to-indigo-900 text-white  flex flex-col">
             <motion.div
                 className="w-11/12 mx-auto flex-1"
                 initial={{ opacity: 0, y: 40 }}
