@@ -20,6 +20,7 @@ import ManageActivities from "../admin/ManageActivities";
 import Settings from "../admin/Settings";
 import AdminLayout from "../Layout/AdminLayout";
 import PublicationDetail from "../components/PublicationDetail";
+import ManageCertificatesAndTraining from "../admin/ManageCerticatesAndTraining";
 
 const router = createBrowserRouter([
     {
@@ -50,6 +51,7 @@ const router = createBrowserRouter([
             { path: "gallery", element: <ManageGallery /> },
             { path: "activities", element: <ManageActivities /> },
             { path: "settings", element: <Settings /> },
+            { path: "certificates", element: <ManageCertificatesAndTraining /> },
         ],
     },
 ]);
