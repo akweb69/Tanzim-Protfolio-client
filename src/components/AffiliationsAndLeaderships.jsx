@@ -47,7 +47,7 @@ const AffiliationsAndLeaderships = () => {
                         {/* Right Side: Content Box */}
                         {selectedLeadership && (
                             <motion.div
-                                className="md:col-span-2 bg-gray-800/70 backdrop-blur-lg p-4 sm:p-6 rounded-xl shadow-lg border border-gray-700/50 order-1 md:order-2"
+                                className="md:col-span-2 bg-[rgba(0,0,0,0.2)] backdrop-blur-lg p-4 sm:p-6 rounded-xl shadow-lg border border-gray-700/50 order-1 md:order-2"
                                 initial={{ opacity: 0, x: 30 }}
                                 animate={{ opacity: 1, x: 0 }}
                                 transition={{ duration: 0.6 }}
@@ -86,8 +86,8 @@ const AffiliationsAndLeaderships = () => {
                                 <motion.div
                                     key={lead._id}
                                     className={`p-4 rounded-lg cursor-pointer transition-all border border-gray-700/50 mb-4 ${selectedLeadership?._id === lead._id
-                                        ? "bg-cyan-400/20 shadow-lg"
-                                        : "bg-gray-800/70 hover:bg-gray-700/70"
+                                        ? "bg-indigo-900/90 shadow-lg"
+                                        : "bg-[rgba(0,0,0,0.2)] hover:bg-indigo-700"
                                         }`}
                                     initial={{ opacity: 0, x: -30 }}
                                     whileInView={{ opacity: 1, x: 0 }}

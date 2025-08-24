@@ -64,7 +64,7 @@ const TrainingAndCertificate = () => {
                         {trainings?.map((training, index) => (
                             <motion.div
                                 key={training?._id}
-                                className="bg-gray-800/70 backdrop-blur-lg p-6 rounded-xl shadow-lg border border-gray-700/50 hover:shadow-2xl transition-all"
+                                className="bg-[rgba(0,0,0,0.2)] p-6 rounded-xl shadow-lg border border-gray-700/50 hover:shadow-2xl transition-all"
                                 initial={{ opacity: 0, y: 30 }}
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true }}

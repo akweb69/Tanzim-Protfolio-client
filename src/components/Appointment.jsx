@@ -108,7 +108,7 @@ const Appointment = () => {
 
                 {/* Right Form */}
                 <motion.form
-                    className="bg-gray-800 p-8 rounded-xl shadow-[0_0_15px_rgba(79,70,229,0.7)] flex flex-col gap-6 relative"
+                    className="bg-[rgba(0,0,0,0.2)] p-8 rounded-xl shadow-[0_0_15px_rgba(79,70,229,0.7)] flex flex-col gap-6 relative"
                     onSubmit={handleSubmit}
                     initial={{ x: 100, opacity: 0 }}
                     animate={{ x: 0, opacity: 1 }}
@@ -123,7 +123,7 @@ const Appointment = () => {
                             placeholder="Your Name"
                             value={formData.name}
                             onChange={handleChange}
-                            className="w-full pl-10 p-3 rounded-lg bg-gray-700 text-white placeholder-indigo-300 border border-gray-600 focus:border-indigo-400 focus:outline-none focus:shadow-[0_0_8px_rgba(79,70,229,0.5)] transition-all duration-300"
+                            className="w-full pl-10 p-3 rounded-lg  text-white placeholder-indigo-300 border border-gray-600 focus:border-indigo-400 focus:outline-none focus:shadow-[0_0_8px_rgba(79,70,229,0.5)] transition-all duration-300"
                             disabled={loading}
                         />
                     </div>
@@ -135,7 +135,7 @@ const Appointment = () => {
                             placeholder="Phone Number"
                             value={formData.phone}
                             onChange={handleChange}
-                            className="w-full pl-10 p-3 rounded-lg bg-gray-700 text-white placeholder-indigo-300 border border-gray-600 focus:border-indigo-400 focus:outline-none focus:shadow-[0_0_8px_rgba(79,70,229,0.5)] transition-all duration-300"
+                            className="w-full pl-10 p-3 rounded-lg  text-white placeholder-indigo-300 border border-gray-600 focus:border-indigo-400 focus:outline-none focus:shadow-[0_0_8px_rgba(79,70,229,0.5)] transition-all duration-300"
                             disabled={loading}
                         />
                     </div>
@@ -147,7 +147,7 @@ const Appointment = () => {
                             placeholder="Email Address"
                             value={formData.email}
                             onChange={handleChange}
-                            className="w-full pl-10 p-3 rounded-lg bg-gray-700 text-white placeholder-indigo-300 border border-gray-600 focus:border-indigo-400 focus:outline-none focus:shadow-[0_0_8px_rgba(79,70,229,0.5)] transition-all duration-300"
+                            className="w-full pl-10 p-3 rounded-lg  text-white placeholder-indigo-300 border border-gray-600 focus:border-indigo-400 focus:outline-none focus:shadow-[0_0_8px_rgba(79,70,229,0.5)] transition-all duration-300"
                             disabled={loading}
                         />
                     </div>
@@ -158,7 +158,7 @@ const Appointment = () => {
                             placeholder="Project Description or Message"
                             value={formData.description}
                             onChange={handleChange}
-                            className="w-full pl-10 p-3 rounded-lg bg-gray-700 text-white placeholder-indigo-300 border border-gray-600 focus:border-indigo-400 focus:outline-none focus:shadow-[0_0_8px_rgba(79,70,229,0.5)] transition-all duration-300 h-32 resize-none"
+                            className="w-full pl-10 p-3 rounded-lg  text-white placeholder-indigo-300 border border-gray-600 focus:border-indigo-400 focus:outline-none focus:shadow-[0_0_8px_rgba(79,70,229,0.5)] transition-all duration-300 h-32 resize-none"
                             disabled={loading}
                         />
                     </div>

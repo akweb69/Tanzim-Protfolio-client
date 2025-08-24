@@ -28,7 +28,7 @@ const Activities = () => {
     }, []);
 
     return (
-        <section id="activities" className="py-12 sm:py-16 bg-gradient-to-tr from-gray-950 to-indigo-900 min-h-[100vh] flex flex-col">
+        <section id="activities" className="py-12 sm:py-16 bg-gradient-to-tr from-gray-950 to-indigo-900 flex flex-col">
             <motion.div
                 className="w-11/12 mx-auto flex-1"
                 initial={{ opacity: 0, y: 50 }}
@@ -50,8 +50,8 @@ const Activities = () => {
                                 <motion.div
                                     key={act._id}
                                     className={`p-4 rounded-lg cursor-pointer transition-all border border-gray-700/50 mb-4 ${selectedActivity?._id === act._id
-                                        ? "bg-cyan-400/20 shadow-lg"
-                                        : "bg-gray-800/70 hover:bg-gray-700/70"
+                                        ? "bg-indigo-900/90 shadow-lg"
+                                        : "bg-[rgba(0,0,0,0.2)] hover:bg-indigo-700"
                                         }`}
                                     initial={{ opacity: 0, x: -30 }}
                                     whileInView={{ opacity: 1, x: 0 }}
@@ -78,7 +78,7 @@ const Activities = () => {
                         {/* Right Side: Content Box */}
                         {selectedActivity && (
                             <motion.div
-                                className="md:col-span-2 bg-gray-800/70 backdrop-blur-lg p-4 sm:p-6 rounded-xl shadow-lg border border-gray-700/50"
+                                className="md:col-span-2 bg-[rgba(0,0,0,0.2)] backdrop-blur-lg p-4 sm:p-6 rounded-xl shadow-lg border border-gray-700/50"
                                 initial={{ opacity: 0, x: 30 }}
                                 animate={{ opacity: 1, x: 0 }}
                                 transition={{ duration: 0.6 }}

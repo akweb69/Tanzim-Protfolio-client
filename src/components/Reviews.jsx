@@ -46,7 +46,7 @@ const Reviews = () => {
                         {reviews.map((review, index) => (
                             <motion.div
                                 key={review._id}
-                                className="bg-[rgba(0,0,0,0.3)] backdrop-blur-xs p-4 sm:p-6 rounded-2xl shadow-xl flex flex-col items-center"
+                                className="bg-[rgba(0,0,0,0.2)] backdrop-blur-xs p-4 sm:p-6 rounded-2xl shadow-xl flex flex-col items-center"
                                 initial={{ opacity: 0, y: 20 }}
                                 whileInView={{ opacity: 1, y: 0 }}
                                 transition={{ duration: 0.5, delay: index * 0.1 }}
@@ -75,7 +75,7 @@ const Reviews = () => {
                                 </div>
 
                                 {/* Comment */}
-                                <div className="relative bg-[rgba(0,0,0,0.3)] backdrop-blur-sm p-4 sm:p-5 rounded-xl text-center">
+                                <div className="relative bg-[rgba(0,0,0,0.2)] backdrop-blur-sm p-4 sm:p-5 rounded-xl text-center">
                                     <FaQuoteLeft className="absolute -top-3 sm:-top-4 -left-2 sm:-left-3 text-blue-400 text-xl sm:text-2xl" />
                                     <p className="text-gray-200 text-sm leading-relaxed">{review.message}</p>
                                 </div>
