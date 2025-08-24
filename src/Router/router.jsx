@@ -25,6 +25,7 @@ import ManagementExperience from "../admin/ManagementExperience";
 import ManageLeadership from "../admin/ManageLeadership";
 import ManageSkills from "../admin/ManageSkills";
 import ManageEducation from "../admin/ManageEducation";
+import ManageSectionShow from "../admin/ManageSectionShow";
 
 const router = createBrowserRouter([
     {
@@ -60,6 +61,7 @@ const router = createBrowserRouter([
             { path: "leadership", element: <ManageLeadership /> },
             { path: "skills", element: <ManageSkills /> },
             { path: "education", element: <ManageEducation /> },
+            { path: "section", element: <ManageSectionShow /> },
         ],
     },
 ]);

@@ -132,6 +132,15 @@ const AdminLayout = () => {
                                 Settings
                             </Link>
                         </li>
+                        <li>
+                            <Link
+                                to="/admin/section"
+                                className="block py-2 px-4 rounded hover:bg-indigo-800 transition-colors"
+                                onClick={() => setIsSidebarOpen(false)}
+                            >
+                                Manage Sections
+                            </Link>
+                        </li>
                     </ul>
                 </nav>
             </div>

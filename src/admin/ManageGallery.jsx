@@ -95,7 +95,7 @@ const ManageGallery = () => {
     };
 
     return (
-        <section className="p-4 md:p-6 lg:p-8 bg-[rgba(0,0,0,0.1)] backdrop-blur-xs min-h-[100vh] flex flex-col">
+        <section className="p-4 md:p-6 lg:p-8 bg-[rgba(0,0,0,0.1)] backdrop-blur-xs max-h-screen overflow-y-scroll flex flex-col">
             <motion.h1
                 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-6 md:mb-8 text-center"
                 initial={{ opacity: 0, y: -20 }}

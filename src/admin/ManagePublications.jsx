@@ -150,7 +150,7 @@ const ManagePublications = () => {
     };
 
     return (
-        <section className="p-4 md:p-8 bg-gradient-to-br from-indigo-900 via-indigo-800 to-indigo-950 min-h-screen rounded-lg">
+        <section className="p-4 md:p-8 bg-gradient-to-br from-indigo-900 via-indigo-800 to-indigo-950 min-h-screen overflow-y-auto rounded-lg">
             <motion.h1
                 className="text-3xl md:text-4xl font-bold text-indigo-100 mb-8 text-center"
                 initial={{ opacity: 0, y: -20 }}
