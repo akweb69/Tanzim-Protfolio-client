@@ -96,6 +96,18 @@ const PublicationDetail = () => {
                 )}
                 <p className="text-gray-500 text-sm">Published: {publication.year}</p>
             </motion.div>
+            {/* visit publication link */}
+            <div className="w-11/12 mx-auto mt-6">
+                <motion.a
+                    href={publication?.publication_link}
+                    target="_blank"
+                    className="flex items-center w-fit bg-amber-500 text-white px-6 py-3 rounded-2xl shadow-lg"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                >
+                    Read Full Publication
+                </motion.a>
+            </div>
         </section>
     );
 };

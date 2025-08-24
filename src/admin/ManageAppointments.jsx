@@ -98,7 +98,7 @@ const ManageAppointments = () => {
                 <div className="text-white mb-4">No appointments found.</div>
             )}
 
-            <div className="overflow-x-auto bg-white rounded-lg shadow">
+            <div className="overflow-x-auto bg-[rgba(0,0,0,0.1)]  rounded-lg shadow">
                 <table className="w-full table-auto text-sm">
                     <thead className="bg-blue-700 text-white">
                         <tr>
@@ -115,7 +115,7 @@ const ManageAppointments = () => {
                         {appointments.map((app) => (
                             <tr
                                 key={app._id}
-                                className={`text-gray-700 border-b hover:bg-gray-50 ${app.disabled ? "opacity-50" : ""
+                                className={`text-white border-b hover:bg-[rgba(0,0,0,0.3)] ${app.disabled ? "opacity-50" : ""
                                     }`}
                             >
                                 <td className="px-4 py-2">{app.name}</td>

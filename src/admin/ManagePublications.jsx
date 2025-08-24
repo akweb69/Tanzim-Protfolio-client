@@ -11,6 +11,7 @@ const ManagePublications = () => {
         description: "",
         year: "",
         thumbnail: "",
+        publication_link: "",
     });
     const [editingId, setEditingId] = useState(null);
     const [imageFile, setImageFile] = useState(null);
@@ -79,6 +80,7 @@ const ManagePublications = () => {
                 ...formData,
                 thumbnail: thumbnailUrl || formData.thumbnail,
                 year: formData.year || new Date().toISOString().split("T")[0],
+                publication_link: formData.publication_link || "",
             };
 
             if (editingId) {
@@ -111,6 +113,7 @@ const ManagePublications = () => {
                 description: "",
                 year: "",
                 thumbnail: "",
+                publication_link: "",
             });
             setImageFile(null);
             setEditingId(null);
@@ -129,6 +132,7 @@ const ManagePublications = () => {
             description: pub.description || "",
             year: pub.year,
             thumbnail: pub.thumbnail || "",
+            publication_link: pub.publication_link || "",
         });
         setEditingId(pub._id);
     };
@@ -158,9 +162,9 @@ const ManagePublications = () => {
             {/* Form */}
             <form
                 onSubmit={handleSubmit}
-                className="mb-8 bg-white p-6 md:p-8 rounded-2xl shadow-xl max-w-4xl mx-auto"
+                className="mb-8 bg-[rgba(0,0,0,0.2)] text-white p-6 md:p-8 rounded-2xl shadow-xl w-full mx-auto"
             >
-                <h2 className="text-2xl font-semibold text-indigo-700 mb-4">
+                <h2 className="text-2xl font-semibold text-indigo-50 mb-4">
                     {editingId ? "Edit Publication" : "Add New Publication"}
                 </h2>
                 {error && <p className="text-red-600 mb-4">{error}</p>}
@@ -188,7 +192,7 @@ const ManagePublications = () => {
                         onChange={handleInputChange}
                         placeholder="Description"
                         className="p-3 border border-indigo-300 rounded-lg col-span-1 md:col-span-2 focus:ring-2 focus:ring-indigo-500"
-                        rows="4"
+                        rows="5"
                     />
                     <input
                         type="date"
@@ -202,6 +206,14 @@ const ManagePublications = () => {
                         accept="image/*"
                         onChange={handleImageChange}
                         className="p-3 border border-indigo-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
+                    />
+                    <input
+                        type="url"
+                        name="publication_link"
+                        value={formData.publication_link}
+                        onChange={handleInputChange}
+                        placeholder="Publication Link"
+                        className="p-3 border col-span-2 border-indigo-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
                     />
                 </div>
                 <div className="mt-6 flex flex-wrap gap-4">
@@ -226,9 +238,10 @@ const ManagePublications = () => {
                                     description: "",
                                     year: "",
                                     thumbnail: "",
+                                    publication_link: "",
                                 });
-                                setEditingId(null);
                                 setImageFile(null);
+                                setEditingId(null);
                             }}
                             className="bg-gray-500 text-white px-6 py-2 rounded-lg shadow hover:bg-gray-600 transition"
                         >
@@ -239,9 +252,9 @@ const ManagePublications = () => {
             </form>
 
             {/* Table */}
-            <div className="overflow-x-auto bg-white rounded-2xl shadow-xl max-w-6xl mx-auto">
+            <div className="overflow-x-auto bg-[rgba(0,0,0,0.2)] rounded-2xl shadow-xl max-w-6xl mx-auto">
                 <table className="w-full table-auto">
-                    <thead className="bg-indigo-700 text-white text-left">
+                    <thead className="bg-[rgba(0,0,0,0.2)] text-white text-left">
                         <tr>
                             <th className="px-4 py-3">Title</th>
                             <th className="px-4 py-3">Year</th>
@@ -252,7 +265,7 @@ const ManagePublications = () => {
                         {publications.map((pub) => (
                             <tr
                                 key={pub._id}
-                                className="text-gray-700 border-b hover:bg-indigo-50 transition"
+                                className="text-white border-b hover:bg-indigo-700 transition"
                             >
                                 <td className="px-4 py-3">{pub.title}</td>
                                 <td className="px-4 py-3">{pub.year}</td>

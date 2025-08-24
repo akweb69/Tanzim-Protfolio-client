@@ -1,20 +1,30 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import axios from "axios";
 
 const Gallery = () => {
     const [selectedImage, setSelectedImage] = useState(null);
+    const [images, setImages] = useState([]);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(null);
 
-    const images = [
-        "https://i.ibb.co.com/hxs24Dbb/Whats-App-Image-2025-07.jpg",
-        "https://i.ibb.co.com/YLxVRbn/gallery2.jpg",
-        "https://i.ibb.co.com/Fxj7W2Z/gallery3.jpg",
-        "https://i.ibb.co.com/7yC1nDw/gallery4.jpg",
-        "https://i.ibb.co.com/G2YjVfj/gallery5.jpg",
-        "https://i.ibb.co.com/D7zqFFh/gallery6.jpg",
-        "https://i.ibb.co.com/jwVvRSP/gallery7.jpg",
-        "https://i.ibb.co.com/WcTt9RQ/gallery8.jpg",
+    const baseUrl = import.meta.env.VITE_BASE_URL;
 
-    ];
+    useEffect(() => {
+        const fetchImages = async () => {
+            setLoading(true);
+            try {
+                const response = await axios.get(`${baseUrl}/all_gallery`);
+                setImages(response.data);
+            } catch (err) {
+                setError("Failed to fetch gallery images.");
+                console.error(err);
+            } finally {
+                setLoading(false);
+            }
+        };
+        fetchImages();
+    }, []);
 
     return (
         <section id="gallery" className="py-20 bg-gradient-to-tr from-gray-950 to-indigo-900">
@@ -28,27 +38,30 @@ const Gallery = () => {
                 <h2 className="text-4xl md:text-5xl font-bold text-white mb-12">
                     Stunning Gallery
                 </h2>
-
-                {/* Grid layout like Pinterest */}
-                <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                    {images.map((img, index) => (
-                        <motion.div
-                            key={index}
-                            className="overflow-hidden rounded-xl shadow-lg cursor-pointer"
-                            initial={{ opacity: 0, scale: 0.9 }}
-                            whileInView={{ opacity: 1, scale: 1 }}
-                            transition={{ duration: 0.6, delay: index * 0.1 }}
-                            whileHover={{ scale: 1.05 }}
-                            onClick={() => setSelectedImage(img)}
-                        >
-                            <img
-                                src={img}
-                                alt={`Gallery ${index + 1}`}
-                                className="w-full h-full object-cover"
-                            />
-                        </motion.div>
-                    ))}
-                </div>
+                {error && <p className="text-red-600 mb-4">{error}</p>}
+                {loading ? (
+                    <p className="text-white">Loading images...</p>
+                ) : (
+                    <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                        {images.map((img, index) => (
+                            <motion.div
+                                key={img._id}
+                                className="overflow-hidden rounded-xl shadow-lg cursor-pointer"
+                                initial={{ opacity: 0, scale: 0.9 }}
+                                whileInView={{ opacity: 1, scale: 1 }}
+                                transition={{ duration: 0.6, delay: index * 0.1 }}
+                                whileHover={{ scale: 1.05 }}
+                                onClick={() => setSelectedImage(img.image)}
+                            >
+                                <img
+                                    src={img.image}
+                                    alt={`Gallery ${index + 1}`}
+                                    className="w-full h-full object-cover"
+                                />
+                            </motion.div>
+                        ))}
+                    </div>
+                )}
             </motion.div>
 
             {/* Modal */}
@@ -67,7 +80,7 @@ const Gallery = () => {
                             animate={{ scale: 1, opacity: 1 }}
                             exit={{ scale: 0.8, opacity: 0 }}
                             transition={{ duration: 0.3 }}
-                            onClick={(e) => e.stopPropagation()} // stop close on image click
+                            onClick={(e) => e.stopPropagation()}
                         >
                             <img
                                 src={selectedImage}
