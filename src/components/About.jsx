@@ -2,12 +2,14 @@ import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
 import { FaGraduationCap, FaTools } from "react-icons/fa";
 import axios from "axios";
+import useSettingData from "../Common/useSettingData";
 
 const About = () => {
     const [skills, setSkills] = useState([]);
     const [education, setEducation] = useState([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
+    const { data } = useSettingData();
 
     const baseUrl = import.meta.env.VITE_BASE_URL;
 
@@ -50,7 +52,7 @@ const About = () => {
                     whileInView={{ scale: 1 }}
                     transition={{ duration: 0.6, ease: "easeOut" }}
                 >
-                    About Me
+                    About
                 </motion.h2>
 
                 {/* Description */}
@@ -60,9 +62,12 @@ const About = () => {
                     whileInView={{ opacity: 1 }}
                     transition={{ duration: 0.8, delay: 0.2 }}
                 >
-                    I'm <span className="font-semibold text-cyan-400">Tanzim Khan</span>, an{" "}
+                    I'm <span className="font-semibold text-cyan-400">
+                        {data[0]?.myName || "Md Tanzim Khan"}
+                    </span>, an{" "}
                     <span className="font-semibold text-cyan-400">Electrical & Electronic Engineer</span>{" "}
-                    driven by a passion for innovation and technology. I specialize in power systems, electronics, and project management, delivering impactful solutions to real-world engineering challenges.
+                    {data[0]?.aboutMe || "Passionate about technology, projects, and innovations. I love turning ideas into impactful solutions."}
+
                 </motion.p>
 
                 {error && <p className="text-red-600 text-center mb-4">{error}</p>}

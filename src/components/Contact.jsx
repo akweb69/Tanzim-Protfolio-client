@@ -1,7 +1,9 @@
 import { motion } from "framer-motion";
 import { FaPhone, FaEnvelope, FaMapMarkerAlt } from "react-icons/fa";
+import useSettingData from "../Common/useSettingData";
 
 const Contact = () => {
+    const { data } = useSettingData();
     // Define indigo-purple neon colors
     const neonColors = {
         phone: "#4f46e5", // Indigo
@@ -55,7 +57,7 @@ const Contact = () => {
                                 textShadow: `0 0 4px ${neonColors.phone}`,
                             }}
                         >
-                            +880 1768037870
+                            {data[0]?.phone || "+880 1768037870"}
                         </p>
                     </motion.div>
 
@@ -84,7 +86,7 @@ const Contact = () => {
                                 textShadow: `0 0 4px ${neonColors.email}`,
                             }}
                         >
-                            akwebdev69@gmail.com
+                            {data[0]?.email || "akwebdev69@gmail.com"}
                         </p>
                     </motion.div>
 
@@ -113,7 +115,7 @@ const Contact = () => {
                                 textShadow: `0 0 4px ${neonColors.location}`,
                             }}
                         >
-                            Dhaka, Bangladesh
+                            {data[0]?.address || "Mowchak, Gazipur, Bangladesh"}
                         </p>
                     </motion.div>
                 </div>

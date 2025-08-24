@@ -3,6 +3,7 @@ import { useState } from "react";
 import { FaUser, FaPhone, FaEnvelope, FaComment, FaCalendarCheck, FaMapMarkerAlt, FaClock } from "react-icons/fa";
 import axios from "axios";
 import { toast } from "react-toastify";
+import useSettingData from "../Common/useSettingData";
 
 const Appointment = () => {
     const [formData, setFormData] = useState({
@@ -13,6 +14,7 @@ const Appointment = () => {
     });
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
+    const { data } = useSettingData();
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -92,13 +94,13 @@ const Appointment = () => {
                     </p>
                     <div className="space-y-4">
                         <p className="flex items-center text-indigo-200">
-                            <FaPhone className="mr-2 text-indigo-400" /> +123-456-7890
+                            <FaPhone className="mr-2 text-indigo-400" /> {data[0]?.phone || "+880 1708-123456"}
                         </p>
                         <p className="flex items-center text-indigo-200">
-                            <FaEnvelope className="mr-2 text-indigo-400" /> tanzim@khantech.com
+                            <FaEnvelope className="mr-2 text-indigo-400" /> {data[0]?.email || "tanzim@khantech.com"}
                         </p>
                         <p className="flex items-center text-indigo-200">
-                            <FaMapMarkerAlt className="mr-2 text-indigo-400" /> 123 Tech Street, Dhaka
+                            <FaMapMarkerAlt className="mr-2 text-indigo-400" /> {data[0]?.address || "123 Tech Street, Dhaka"}
                         </p>
                         <p className="flex items-center text-indigo-200">
                             <FaClock className="mr-2 text-indigo-400" /> Mon-Fri: 9 AM - 5 PM

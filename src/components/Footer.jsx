@@ -1,15 +1,16 @@
 import { FaFacebook, FaLinkedin, FaGithub } from "react-icons/fa";
+import useSettingData from "../Common/useSettingData";
 
 const Footer = () => {
+    const { data } = useSettingData();
     return (
         <footer className="bg-gray-900 text-gray-300 py-12 px-6 md:px-12 lg:px-24">
             <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
                 {/* About Section */}
                 <div className="flex flex-col space-y-4">
-                    <h3 className="text-xl font-semibold text-white">About Me</h3>
+                    <h3 className="text-xl font-semibold text-white">About</h3>
                     <p className="text-sm leading-relaxed">
-                        Tanzim Khan, a passionate developer creating innovative web solutions.
-                        Explore my portfolio and connect with me on social media.
+                        {data[0]?.aboutMe || "Tanzim Khan, a passionate developer creating innovative web solutions."}
                     </p>
                     <p className="text-sm">&copy; 2025 Tanzim Khan. All rights reserved.</p>
                 </div>

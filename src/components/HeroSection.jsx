@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { FaDownload, FaEnvelope } from "react-icons/fa";
+import useSettingData from "../Common/useSettingData";
+import Loading from "../Common/Loading ";
 
 const HeroSection = () => {
     const texts = [
@@ -14,6 +16,7 @@ const HeroSection = () => {
     const [index, setIndex] = useState(0);
     const [subIndex, setSubIndex] = useState(0);
     const [backward, setBackward] = useState(false);
+    const { data, loading, error } = useSettingData();
 
     // Typing effect
     useEffect(() => {
@@ -44,6 +47,7 @@ const HeroSection = () => {
     // Parallax effect for background
     const { scrollY } = useScroll();
     const y = useTransform(scrollY, [0, 300], [0, 50]);
+    if (loading) return <Loading />;
 
     return (
         <section className="relative bg-hero-section text-white min-h-screen flex items-center overflow-hidden py-28">
@@ -60,7 +64,7 @@ const HeroSection = () => {
                     transition={{ duration: 0.8, ease: "easeOut" }}
                 >
                     <h1 className="text-5xl md:text-6xl font-extrabold py-3 ">
-                        Hi, I'm <br /> <span className="bg-gradient-to-tr from-pink-500 to-purple-600 bg-clip-text text-transparent text-6xl md:text-7xl pt-2">Md Tanzim Khan</span>
+                        Hi, I'm <br /> <span className="bg-gradient-to-tr from-pink-500 to-purple-600 bg-clip-text text-transparent text-6xl md:text-7xl pt-2"> {data[0]?.myName || "Md Tanzim Khan"} </span>
                     </h1>
 
                     {/* Typing Effect */}
@@ -76,8 +80,8 @@ const HeroSection = () => {
                     </p>
 
                     <p className="mt-6 text-gray-200 text-lg leading-relaxed">
-                        Passionate about technology, projects, and innovations. I love turning
-                        ideas into impactful solutions.
+
+                        {data[0]?.description || "Passionate about technology, projects, and innovations. I love turning ideas into impactful solutions."}
                     </p>
 
                     {/* Buttons */}
@@ -109,7 +113,7 @@ const HeroSection = () => {
                     transition={{ duration: 0.8, ease: "easeOut" }}
                 >
                     <motion.img
-                        src="https://i.ibb.co.com/KxdJVxDJ/Whats-App-Image-2025-08-21-at-18-01-52-f91f71ff.jpg"
+                        src={data[0]?.image || "https://i.ibb.co.com/KxdJVxDJ/Whats-App-Image-2025-08-21-at-18-01-52-f91f71ff.jpg"}
                         alt="Tanzim Khan"
                         className="rounded-full w-80 md:w-[400px] border-4 border-blue-400"
                         whileHover={{ scale: 1.07, rotate: 2 }}
