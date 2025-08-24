@@ -119,9 +119,10 @@ const ManagementExperience = () => {
             {/* Form */}
             <form
                 onSubmit={handleSubmit}
-                className="mb-6 bg-white p-4 sm:p-6 rounded-2xl shadow-xl max-w-2xl mx-auto w-full"
+                className="mb-6 bg-[rgba(0,0,0,0.2)] p-4 sm:p-6 rounded-2xl shadow-xl text-white
+                 mx-auto w-full"
             >
-                <h2 className="text-xl sm:text-2xl font-semibold text-indigo-700 mb-4">
+                <h2 className="text-xl sm:text-2xl font-semibold text-indigo-50 mb-4">
                     {editingId ? "Edit Experience" : "Add New Experience"}
                 </h2>
                 {error && <p className="text-red-600 mb-4">{error}</p>}
@@ -184,7 +185,7 @@ const ManagementExperience = () => {
             </form>
 
             {/* Experience List */}
-            <div className="w-full max-w-4xl mx-auto flex-1">
+            <div className="w-full mx-auto flex-1">
                 <div className="grid grid-cols-1 gap-4">
                     {experiences.map((exp) => (
                         <motion.div
