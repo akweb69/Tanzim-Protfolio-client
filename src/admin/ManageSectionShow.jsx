@@ -103,6 +103,7 @@ const ManageSectionShow = () => {
                 {error && <p className="text-red-600 mb-4">{error}</p>}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <input
+                        readOnly
                         type="text"
                         name="name"
                         value={formData.name}

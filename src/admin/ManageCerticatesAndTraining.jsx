@@ -159,7 +159,7 @@ const ManageCertificatesAndTraining = () => {
     };
 
     return (
-        <section className="p-4 md:p-8 bg-[rgba(0,0,0,0.1)] backdrop-blur-xs rounded-lg overflow-y-scroll max-h-screen">
+        <section className="p-4 md:p-8 bg-[rgba(0,0,0,0.2)] backdrop-blur-xs rounded-lg overflow-y-scroll max-h-screen">
             <motion.h1
                 className="text-3xl font-bold text-white mb-8"
                 initial={{ opacity: 0, y: -20 }}
@@ -169,7 +169,7 @@ const ManageCertificatesAndTraining = () => {
             </motion.h1>
 
             {/* Form for adding/editing certificates */}
-            <form onSubmit={handleSubmit} className="mb-8 bg-white p-6 rounded-lg shadow">
+            <form onSubmit={handleSubmit} className="mb-8 bg-[rgba(0,0,0,0.2)] text-white p-6 rounded-lg shadow">
                 <h2 className="text-2xl font-semibold mb-4">
                     {editingId ? "Edit Certificate" : "Add New Certificate"}
                 </h2>

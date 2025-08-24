@@ -88,7 +88,7 @@ const HeroSection = () => {
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
                         >
-                            <FaDownload className="mr-2" /> Download CV
+                            <FaDownload className="mr-2" /> View CV
                         </motion.a>
                         <motion.a
                             href="#contact"
