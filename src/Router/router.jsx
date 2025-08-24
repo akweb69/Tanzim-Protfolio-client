@@ -19,6 +19,7 @@ import ManageGallery from "../admin/ManageGallery";
 import ManageActivities from "../admin/ManageActivities";
 import Settings from "../admin/Settings";
 import AdminLayout from "../Layout/AdminLayout";
+import PublicationDetail from "../components/PublicationDetail";
 
 const router = createBrowserRouter([
     {
@@ -32,10 +33,10 @@ const router = createBrowserRouter([
             { path: "/videocv", element: <VideoCV /> },
             { path: "/reviews", element: <Reviews /> },
             { path: "/publications", element: <Publications /> },
-            { path: "/view-publications", element: <ViewPublications /> },
             { path: "/activities", element: <Activities /> },
             { path: "/appointment", element: <Appointment /> },
             { path: "/contact", element: <Contact /> },
+            { path: "/view-publications/:id", element: <PublicationDetail /> },
         ],
     },
     {
