@@ -1,0 +1,151 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+Duployan:wght@400;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Edu+NSW+ACT+Cursive:wght@400..700&display=swap");
+
+@import "tailwindcss";
+@plugin "daisyui";
+
+body {
+  max-width: 1550px;
+  margin: 0 auto;
+  font-family: "Noto Sans Duployan", sans-serif;
+}
+
+.logoText {
+  font-family: "Edu NSW ACT Cursive", cursive;
+}
+/* hero section bg set */
+/* .bg-hero-section {
+  background: radial-gradient(125% 125% at 50% 100%, #000000 40%, #010133 100%);
+} */
+/* TailwindCSS is assumed to be used, so we'll extend the existing styles with custom CSS */
+.bg-hero-section {
+  background: linear-gradient(
+    135deg,
+    #0a0a23 20%,
+    /* Deep space blue */ #1e1e5f 80%,
+    /* Midnight blue */ #19003d 100% /* Deep purple */
+  );
+  position: relative;
+  overflow: hidden;
+}
+.bg-hero-section1 {
+  background: linear-gradient(
+    135deg,
+    #0a0a23 60%,
+    /* Deep space blue */ #1e1e5f 0%,
+    /* Midnight blue */ #19003d 50% /* Deep purple */
+  );
+  position: relative;
+  overflow: hidden;
+}
+
+/* Particle-like background animation */
+.bg-hero-section::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(
+    circle at 50% 50%,
+    rgba(0, 255, 255, 0.1) 0%,
+    transparent 50%
+  );
+  animation: pulse 8s ease-in-out infinite;
+  z-index: 0;
+}
+.bg-hero-section1::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(
+    circle at 50% 50%,
+    rgba(0, 255, 255, 0.1) 0%,
+    transparent 50%
+  );
+  animation: pulse 8s ease-in-out infinite;
+  z-index: 0;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.2;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 0.4;
+  }
+}
+
+/* Button hover effects */
+.bg-amber-500 {
+  background: linear-gradient(
+    45deg,
+    #ff6b6b,
+    #ff8e53
+  ); /* Warm, vibrant gradient */
+  transition: all 0.3s ease;
+}
+.bg-amber-500:hover {
+  background: linear-gradient(45deg, #ff8e53, #ff6b6b);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(255, 107, 107, 0.5);
+}
+
+.bg-white {
+  background: linear-gradient(45deg, #ffffff, #e0e0e0);
+  color: #1e1e5f;
+  transition: all 0.3s ease;
+}
+.bg-white:hover {
+  background: linear-gradient(45deg, #e0e0e0, #ffffff);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(255, 255, 255, 0.5);
+}
+
+/* Image glow and hover */
+.border-blue-400 {
+  border-color: #00ddeb; /* Neon cyan */
+  box-shadow: 0 0 20px rgba(0, 221, 235, 0.5), 0 0 40px rgba(0, 221, 235, 0.3);
+}
+.animate-pulse {
+  animation: glow 2s ease-in-out infinite;
+}
+@keyframes glow {
+  0%,
+  100% {
+    box-shadow: 0 0 20px rgba(0, 221, 235, 0.5), 0 0 40px rgba(0, 221, 235, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(0, 221, 235, 0.7), 0 0 60px rgba(0, 221, 235, 0.4);
+  }
+}
+
+/* Neon ring animation */
+.border-cyan-400 {
+  border-color: #ff2e63; /* Neon magenta for contrast */
+  animation: spin 4s linear infinite;
+}
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Typography enhancements */
+.text-amber-400 {
+  color: #ff6b6b; /* Vibrant coral for emphasis */
+  text-shadow: 0 0 10px rgba(255, 107, 107, 0.5);
+}
+.text-gray-200 {
+  color: #d1d5db; /* Softer gray for readability */
+}
