@@ -21,6 +21,7 @@ import Settings from "../admin/Settings";
 import AdminLayout from "../Layout/AdminLayout";
 import PublicationDetail from "../components/PublicationDetail";
 import ManageCertificatesAndTraining from "../admin/ManageCerticatesAndTraining";
+import ManagementExperience from "../admin/ManagementExperience";
 
 const router = createBrowserRouter([
     {
@@ -52,6 +53,7 @@ const router = createBrowserRouter([
             { path: "activities", element: <ManageActivities /> },
             { path: "settings", element: <Settings /> },
             { path: "certificates", element: <ManageCertificatesAndTraining /> },
+            { path: "experience", element: <ManagementExperience /> },
         ],
     },
 ]);
