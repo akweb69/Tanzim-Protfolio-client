@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import { motion } from "framer-motion";
+import Loading from "../Common/Loading ";
 
 const PublicationDetail = () => {
     const { id } = useParams();
@@ -40,11 +41,7 @@ const PublicationDetail = () => {
 
     if (loading) {
         return (
-            <section className="py-20 bg-gray-950">
-                <div className="w-11/12 mx-auto">
-                    <p className="text-gray-400">Loading...</p>
-                </div>
-            </section>
+            <Loading></Loading>
         );
     }
 

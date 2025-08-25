@@ -54,7 +54,7 @@ const TrainingAndCertificate = () => {
                 {loading && (
                     <p className="text-gray-400 text-lg">Loading trainings & certifications...</p>
                 )}
-                {error && <p className="text-red-400 text-lg">{error}</p>}
+
                 {!loading && !error && trainings?.length === 0 && (
                     <p className="text-gray-400 text-lg">No trainings & certifications found.</p>
                 )}

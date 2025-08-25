@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { FaGraduationCap, FaTools } from "react-icons/fa";
 import axios from "axios";
 import useSettingData from "../Common/useSettingData";
+import Loading from "../Common/Loading ";
 
 const About = () => {
     const [skills, setSkills] = useState([]);
@@ -32,6 +33,9 @@ const About = () => {
         };
         fetchData();
     }, []);
+    if (loading) {
+        return <Loading></Loading>
+    }
 
     return (
         <section
@@ -70,9 +74,9 @@ const About = () => {
 
                 </motion.p>
 
-                {error && <p className="text-red-600 text-center mb-4">{error}</p>}
+
                 {loading ? (
-                    <p className="text-white text-center flex-1 flex items-center justify-center">Loading data...</p>
+                    <Loading></Loading>
                 ) : (
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12">
                         {/* Education Section */}
@@ -104,7 +108,7 @@ const About = () => {
                                         <p className="text-gray-400 text-xs sm:text-sm">
                                             Location: {edu?.location}</p>
                                         <p className="text-gray-500 text-xs sm:text-sm">
-                                            Year: {edu?.year}</p>
+                                            Passing Year: {edu?.year}</p>
                                         <p className="text-gray-500 text-xs sm:text-sm">GPA: {edu?.gpa}</p>
                                         {edu.description && (
                                             <p className="text-gray-600 text-xs sm:text-sm mt-1"> Description: {edu?.description}</p>

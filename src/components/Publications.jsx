@@ -3,6 +3,7 @@ import { FaExternalLinkAlt } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import Loading from "../Common/Loading ";
 
 const Publications = () => {
     const [publications, setPublications] = useState([]);
@@ -14,6 +15,7 @@ const Publications = () => {
     // Fetch publications from the backend
     useEffect(() => {
         const fetchPublications = async () => {
+            setLoading(true);
             try {
                 const response = await axios.get(`${baseUrl}/all_publications`);
                 setPublications(response.data);
@@ -28,6 +30,12 @@ const Publications = () => {
         fetchPublications();
     }, [baseUrl]);
 
+    if (loading) {
+        return (
+            <Loading></Loading>
+        );
+    }
+
     return (
         <section id="publications" className="py-20 bg-gradient-to-tr from-gray-950 to-indigo-900">
             <motion.div
@@ -40,18 +48,13 @@ const Publications = () => {
                 <h2 className="text-4xl font-bold text-cyan-400 mb-12 bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-500">
                     Publications
                 </h2>
-
-                {loading && (
-                    <p className="text-gray-400 text-lg">Loading publications...</p>
-                )}
-                {error && <p className="text-red-400 text-lg">{error}</p>}
                 {!loading && !error && publications.length === 0 && (
                     <p className="text-gray-400 text-lg">No publications found.</p>
                 )}
 
                 {!loading && !error && publications.length > 0 && (
                     <div className="grid md:grid-cols-3 gap-6 text-left">
-                        {publications.map((pub, index) => (
+                        {publications?.map((pub, index) => (
                             <motion.div
                                 key={pub._id} // Use _id from MongoDB
                                 className="bg-[rgba(0,0,0,0.2)] backdrop-blur-lg p-6 rounded-xl shadow-lg border border-gray-700/50 hover:shadow-2xl transition-all"

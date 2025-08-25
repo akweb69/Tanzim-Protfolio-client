@@ -113,9 +113,10 @@ const HeroSection = () => {
                     transition={{ duration: 0.8, ease: "easeOut" }}
                 >
                     <motion.img
-                        src={data[0]?.image || "https://i.ibb.co.com/KxdJVxDJ/Whats-App-Image-2025-08-21-at-18-01-52-f91f71ff.jpg"}
-                        alt="Tanzim Khan"
-                        className="rounded-full w-80 md:w-[400px] border-4 border-blue-400"
+                        src={data[0]?.photo}
+                        alt="Tanzim Khan loading profile..."
+                        className="rounded-full w-80 md:w-[400px] md:h-[400px] border-4 border-blue-400"
+                        referrerPolicy="no-referrer"
                         whileHover={{ scale: 1.07, rotate: 2 }}
                         transition={{ type: "spring", stiffness: 200 }}
                     />
