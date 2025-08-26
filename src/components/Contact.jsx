@@ -7,7 +7,8 @@ import Loading from "../Common/Loading ";
 const Contact = () => {
     // dynamic data------------>
     const { mainData, loading } = useAuthContext();
-    const { phone, email, address } = mainData || {};
+    const { settings } = mainData || {};
+    const { phone, email, address } = settings[0];
 
     // Define neon colors consistent with other components
     const neonColors = {
