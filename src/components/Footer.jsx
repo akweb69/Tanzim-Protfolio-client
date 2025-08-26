@@ -1,8 +1,9 @@
 import { FaFacebook, FaLinkedin, FaGithub } from "react-icons/fa";
-import useSettingData from "../Common/useSettingData";
+import { motion } from "framer-motion";
 
 const Footer = () => {
-    const { data } = useSettingData();
+    const neonColor = "#4f46e5"; // Indigo-purple neon glow
+
     return (
         <footer className="bg-gray-900 text-gray-300 py-12 px-6 md:px-12 lg:px-24">
             <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -10,7 +11,7 @@ const Footer = () => {
                 <div className="flex flex-col space-y-4">
                     <h3 className="text-xl font-semibold text-white">About</h3>
                     <p className="text-sm leading-relaxed">
-                        {data[0]?.aboutMe || "Tanzim Khan, a passionate developer creating innovative web solutions."}
+                        Tanzim Khan, a passionate developer creating innovative web solutions.
                     </p>
                     <p className="text-sm">&copy; 2025 Tanzim Khan. All rights reserved.</p>
                 </div>
@@ -19,10 +20,17 @@ const Footer = () => {
                 <div className="flex flex-col space-y-4">
                     <h3 className="text-xl font-semibold text-white">Quick Links</h3>
                     <ul className="space-y-2 text-sm">
-                        <li><a href="/portfolio" className="hover:text-blue-500 transition-colors">Portfolio</a></li>
-                        <li><a href="/blog" className="hover:text-blue-500 transition-colors">Blog</a></li>
-                        <li><a href="/contact" className="hover:text-blue-500 transition-colors">Contact</a></li>
-                        <li><a href="/about" className="hover:text-blue-500 transition-colors">About</a></li>
+                        {["Portfolio", "Blog", "Contact", "About"].map((link) => (
+                            <motion.li
+                                key={link}
+                                whileHover={{ scale: 1.05, textShadow: `0 0 8px ${neonColor}, 0 0 16px ${neonColor}` }}
+                                className="cursor-pointer transition-all duration-200"
+                            >
+                                <a href={`/${link.toLowerCase()}`} className="hover:text-blue-400 transition-colors">
+                                    {link}
+                                </a>
+                            </motion.li>
+                        ))}
                     </ul>
                 </div>
 
@@ -30,42 +38,31 @@ const Footer = () => {
                 <div className="flex flex-col space-y-4">
                     <h3 className="text-xl font-semibold text-white">Connect with Me</h3>
                     <div className="flex gap-4">
-                        <a
-                            href="https://www.facebook.com"
-                            target="_blank"
-                            rel="noreferrer"
-                            className="hover:text-blue-600 transition-colors"
-                            aria-label="Facebook"
-                        >
-                            <FaFacebook size={24} />
-                        </a>
-                        <a
-                            href="https://www.linkedin.com/in/abukalam1"
-                            target="_blank"
-                            rel="noreferrer"
-                            className="hover:text-blue-600 transition-colors"
-                            aria-label="LinkedIn"
-                        >
-                            <FaLinkedin size={24} />
-                        </a>
-                        <a
-                            href="https://github.com/akweb69"
-                            target="_blank"
-                            rel="noreferrer"
-                            className="hover:text-blue-600 transition-colors"
-                            aria-label="GitHub"
-                        >
-                            <FaGithub size={24} />
-                        </a>
+                        {[
+                            { icon: <FaFacebook size={24} />, url: "https://www.facebook.com" },
+                            { icon: <FaLinkedin size={24} />, url: "https://www.linkedin.com/in/abukalam1" },
+                            { icon: <FaGithub size={24} />, url: "https://github.com/akweb69" },
+                        ].map((item, i) => (
+                            <motion.a
+                                key={i}
+                                href={item.url}
+                                target="_blank"
+                                rel="noreferrer"
+                                whileHover={{ scale: 1.2, textShadow: `0 0 8px ${neonColor}, 0 0 16px ${neonColor}` }}
+                                className="transition-all duration-200"
+                            >
+                                {item.icon}
+                            </motion.a>
+                        ))}
                     </div>
-                    <div className="mt-4">
+
+                    {/* <div className="mt-4">
                         <h4 className="text-sm font-semibold text-white">Subscribe to Newsletter</h4>
                         <div className="mt-2 flex">
                             <input
                                 type="email"
                                 placeholder="Enter your email"
                                 className="px-4 py-2 bg-gray-800 text-gray-200 rounded-l-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                aria-label="Email for newsletter"
                             />
                             <button
                                 className="px-4 py-2 bg-blue-600 text-white rounded-r-md hover:bg-blue-700 transition-colors"
@@ -74,11 +71,14 @@ const Footer = () => {
                                 Subscribe
                             </button>
                         </div>
-                    </div>
+                    </div> */}
                 </div>
             </div>
+
             <div className="mt-8 border-t border-gray-700 pt-6 text-center text-sm">
-                <p>Built with ❤️ by Tanzim Khan using React & Tailwind CSS</p>
+                <p style={{ textShadow: `0 0 4px ${neonColor}` }}>
+                    Built with ❤️ by Tanzim Khan using React & Tailwind CSS
+                </p>
             </div>
         </footer>
     );

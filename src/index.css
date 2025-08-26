@@ -149,3 +149,20 @@ body {
 .text-gray-200 {
   color: #d1d5db; /* Softer gray for readability */
 }
+@keyframes gradientAnimation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.animate-gradient-bg {
+  background: linear-gradient(45deg, #310053, #37015e, #000000, #8b008b);
+  background-size: 200% 200%;
+  animation: gradientAnimation 10s ease infinite;
+}

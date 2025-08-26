@@ -1,121 +1,133 @@
+
 import { motion } from "framer-motion";
 import { FaPhone, FaEnvelope, FaMapMarkerAlt } from "react-icons/fa";
-import useSettingData from "../Common/useSettingData";
+import useAuthContext from "../Auth/useAuthContext";
+import Loading from "../Common/Loading ";
 
 const Contact = () => {
-    const { data } = useSettingData();
-    // Define indigo-purple neon colors
+    // dynamic data------------>
+    const { mainData, loading } = useAuthContext();
+    const { phone, email, address } = mainData || {};
+
+    // Define neon colors consistent with other components
     const neonColors = {
         phone: "#4f46e5", // Indigo
         email: "#a855f7", // Purple
-        location: "#7c3aed", // Blend of indigo and purple
+        location: "#7c3aed", // Indigo-purple
     };
 
-    // Framer Motion variants for card animation
     const cardVariants = {
-        initial: { scale: 1, boxShadow: "0 0 8px rgba(0, 0, 0, 0.1)" },
+        initial: { opacity: 0, y: 20 },
+        whileInView: { opacity: 1, y: 0 },
         hover: {
-            scale: 1.05,
-            boxShadow: "0 0 20px 5px rgba(79, 70, 229, 0.5)", // Indigo neon glow
+            scale: 1.03,
+            boxShadow: "0 0 15px rgba(0, 255, 255, 0.3)",
             transition: { duration: 0.3 },
         },
     };
 
+    if (loading) {
+        return <Loading />;
+    }
+
     return (
-        <section id="contact" className="py-20 bg-gray-100 dark:bg-gray-900 px-4 sm:px-8 md:px-20">
+        <section
+            id="contact"
+            className="py-12 sm:py-16 bg-gradient-to-tr from-gray-950 via-indigo-900 to-black  flex flex-col"
+        >
             <motion.div
-                className="max-w-6xl mx-auto text-center"
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
+                className="w-11/12 max-w-7xl mx-auto text-center flex-1"
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.8 }}
+                transition={{ duration: 0.8, ease: "easeOut" }}
             >
-                <h2 className="text-4xl font-bold text-blue-700 dark:text-blue-300 mb-10">Contact Me</h2>
-                <div className="grid md:grid-cols-3 gap-8 text-gray-700 dark:text-gray-200">
+                <motion.h2
+                    className="text-3xl sm:text-4xl md:text-5xl font-bold mb-8 md:mb-12 bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-purple-500"
+                    initial={{ scale: 0.95 }}
+                    whileInView={{ scale: 1 }}
+                    transition={{ duration: 0.6, ease: "easeOut" }}
+                    style={{ textShadow: "0 0 10px rgba(0, 255, 255, 0.5)" }}
+                >
+                    Contact Me
+                </motion.h2>
+
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
                     {/* Phone Card */}
                     <motion.div
-                        className="flex flex-col items-center bg-white dark:bg-gray-800 p-6 rounded-lg shadow"
+                        className="flex flex-col items-center bg-[rgba(0,0,0,0.3)] backdrop-blur-lg p-6 sm:p-8 rounded-2xl shadow-xl border border-gray-700/30"
                         variants={cardVariants}
                         initial="initial"
+                        whileInView="whileInView"
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.5, delay: 0.1 }}
                         whileHover="hover"
-                        style={{
-                            border: `2px solid ${neonColors.phone}`,
-                            boxShadow: `0 0 10px ${neonColors.phone}`,
-                            willChange: "transform, box-shadow",
-                        }}
                     >
                         <FaPhone
-                            className="text-3xl mb-2"
+                            className="text-3xl mb-4"
                             style={{
                                 color: neonColors.phone,
                                 textShadow: `0 0 8px ${neonColors.phone}, 0 0 16px ${neonColors.phone}`,
                             }}
+                            aria-label="Phone icon"
                         />
                         <p
-                            className="font-semibold"
-                            style={{
-                                textShadow: `0 0 4px ${neonColors.phone}`,
-                            }}
+                            className="font-semibold text-sm sm:text-base text-gray-200"
+                            style={{ textShadow: `0 0 4px ${neonColors.phone}` }}
                         >
-                            {data[0]?.phone || "+880 1768037870"}
+                            {phone ? `+880 ${phone}` : "Phone not provided"}
                         </p>
                     </motion.div>
 
                     {/* Email Card */}
                     <motion.div
-                        className="flex flex-col items-center bg-white dark:bg-gray-800 p-6 rounded-lg shadow"
+                        className="flex flex-col items-center bg-[rgba(0,0,0,0.3)] backdrop-blur-lg p-6 sm:p-8 rounded-2xl shadow-xl border border-gray-700/30"
                         variants={cardVariants}
                         initial="initial"
+                        whileInView="whileInView"
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.5, delay: 0.2 }}
                         whileHover="hover"
-                        style={{
-                            border: `2px solid ${neonColors.email}`,
-                            boxShadow: `0 0 10px ${neonColors.email}`,
-                            willChange: "transform, box-shadow",
-                        }}
                     >
                         <FaEnvelope
-                            className="text-3xl mb-2"
+                            className="text-3xl mb-4"
                             style={{
                                 color: neonColors.email,
                                 textShadow: `0 0 8px ${neonColors.email}, 0 0 16px ${neonColors.email}`,
                             }}
+                            aria-label="Email icon"
                         />
                         <p
-                            className="font-semibold"
-                            style={{
-                                textShadow: `0 0 4px ${neonColors.email}`,
-                            }}
+                            className="font-semibold text-sm sm:text-base text-gray-200"
+                            style={{ textShadow: `0 0 4px ${neonColors.email}` }}
                         >
-                            {data[0]?.email || "akwebdev69@gmail.com"}
+                            {email || "Email not provided"}
                         </p>
                     </motion.div>
 
                     {/* Location Card */}
                     <motion.div
-                        className="flex flex-col items-center bg-white dark:bg-gray-800 p-6 rounded-lg shadow"
+                        className="flex flex-col items-center bg-[rgba(0,0,0,0.3)] backdrop-blur-lg p-6 sm:p-8 rounded-2xl shadow-xl border border-gray-700/30"
                         variants={cardVariants}
                         initial="initial"
+                        whileInView="whileInView"
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.5, delay: 0.3 }}
                         whileHover="hover"
-                        style={{
-                            border: `2px solid ${neonColors.location}`,
-                            boxShadow: `0 0 10px ${neonColors.location}`,
-                            willChange: "transform, box-shadow",
-                        }}
                     >
                         <FaMapMarkerAlt
-                            className="text-3xl mb-2"
+                            className="text-3xl mb-4"
                             style={{
                                 color: neonColors.location,
                                 textShadow: `0 0 8px ${neonColors.location}, 0 0 16px ${neonColors.location}`,
                             }}
+                            aria-label="Location icon"
                         />
                         <p
-                            className="font-semibold"
-                            style={{
-                                textShadow: `0 0 4px ${neonColors.location}`,
-                            }}
+                            className="font-semibold text-sm sm:text-base text-gray-200"
+                            style={{ textShadow: `0 0 4px ${neonColors.location}` }}
                         >
-                            {data[0]?.address || "Mowchak, Gazipur, Bangladesh"}
+                            {address || "Address not provided"}
                         </p>
                     </motion.div>
                 </div>

@@ -1,117 +1,145 @@
-import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import axios from "axios";
+import useAuthContext from "../Auth/useAuthContext";
+import { useEffect, useState } from "react";
+import Loading from "../Common/Loading ";
 
 const AffiliationsAndLeaderships = () => {
-    const [leaderships, setLeaderships] = useState([]);
-    const [selectedLeadership, setSelectedLeadership] = useState(null);
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState(null);
-
-    const baseUrl = import.meta.env.VITE_BASE_URL;
-
+    // dynamic data------>
+    const { mainData, loading } = useAuthContext();
+    const { leadership } = mainData || {};
+    const [selectedLeadership, setSelectedLeadership] = useState(leadership[0]);
     useEffect(() => {
-        const fetchLeaderships = async () => {
-            setLoading(true);
-            try {
-                const response = await axios.get(`${baseUrl}/leadership`);
-                setLeaderships(response.data);
-                setSelectedLeadership(response.data[0] || null);
-            } catch (err) {
-                setError("Failed to fetch leadership entries.");
-                console.error(err);
-            } finally {
-                setLoading(false);
-            }
-        };
-        fetchLeaderships();
-    }, []);
+        if (leadership && leadership.length > 0) {
+            setSelectedLeadership(leadership[0]);
+        }
+    }, [leadership])
+
+    if (loading) {
+        return <Loading />;
+    }
 
     return (
-        <section id="affiliations" className="py-12 sm:py-16 bg-gradient-to-br from-gray-950 to-indigo-900  flex flex-col">
+        <section
+            id="affiliations"
+            className="py-12 sm:py-16 bg-gradient-to-br from-gray-950 via-indigo-900 to-black min-h-screen flex flex-col"
+        >
             <motion.div
-                className="w-11/12 mx-auto flex-1"
+                className="w-11/12  mx-auto flex-1"
                 initial={{ opacity: 0, y: 50 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.8, ease: "easeOut" }}
             >
-                <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-cyan-400 mb-8 md:mb-12 bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-500 text-center">
+                {/* Title */}
+                <motion.h2
+                    className="text-3xl sm:text-4xl md:text-5xl font-bold mb-8 md:mb-12 text-center bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-purple-500"
+                    initial={{ scale: 0.95 }}
+                    whileInView={{ scale: 1 }}
+                    transition={{ duration: 0.6, ease: "easeOut" }}
+                >
                     Affiliations & Leadership
-                </h2>
-                {error && <p className="text-red-600 text-center mb-4">{error}</p>}
-                {loading ? (
-                    <p className="text-white text-center flex-1 flex items-center justify-center">Loading leadership entries...</p>
-                ) : (
-                    <div className="flex flex-col gap-6 md:grid md:grid-cols-3 md:gap-8">
-                        {/* Right Side: Content Box */}
-                        {selectedLeadership && (
-                            <motion.div
-                                className="md:col-span-2 bg-[rgba(0,0,0,0.2)] backdrop-blur-lg p-4 sm:p-6 rounded-xl shadow-lg border border-gray-700/50 order-1 md:order-2"
-                                initial={{ opacity: 0, x: 30 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                transition={{ duration: 0.6 }}
-                            >
-                                <img
-                                    src={selectedLeadership.thumbnail}
-                                    alt={selectedLeadership.title}
-                                    className="w-full h-32 sm:h-48 object-cover rounded-lg mb-4"
-                                />
-                                <h3 className="text-lg sm:text-2xl font-semibold text-gray-100 mb-2">
-                                    {selectedLeadership.title}
-                                </h3>
-                                <h4 className="text-sm font-medium text-cyan-300 mb-3">
-                                    {selectedLeadership.subtitle}
-                                </h4>
-                                <p className="text-gray-400 text-sm mb-4">
-                                    {selectedLeadership.description}
-                                </p>
-                                <p className="text-gray-500 text-xs mb-2">
-                                    Date: {selectedLeadership.date}
-                                </p>
-                                <p className="text-gray-500 text-xs mb-2">
-                                    Duration: {selectedLeadership.duration}
-                                </p>
-                                <p className="text-gray-500 text-xs mb-2">
-                                    Role: {selectedLeadership.role}
-                                </p>
-                                <p className="text-gray-500 text-xs mb-4">
-                                    Achievement: {selectedLeadership.achievement}
-                                </p>
-                            </motion.div>
-                        )}
-                        {/* Left Side: List of Leaderships */}
-                        <div className="md:col-span-1 order-2 md:order-1">
-                            {leaderships.map((lead, index) => (
+                </motion.h2>
+
+                <div className="flex flex-col lg:grid lg:grid-cols-3 lg:gap-8">
+                    {/* Left: List of Leaderships */}
+                    <motion.div
+                        className="lg:col-span-1 space-y-4 order-2 lg:order-1"
+                        initial={{ opacity: 0, x: -50 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.6 }}
+                    >
+                        {leadership && leadership.length > 0 ? (
+                            leadership.map((lead, index) => (
                                 <motion.div
-                                    key={lead._id}
-                                    className={`p-4 rounded-lg cursor-pointer transition-all border border-gray-700/50 mb-4 ${selectedLeadership?._id === lead._id
-                                        ? "bg-indigo-900/90 shadow-lg"
-                                        : "bg-[rgba(0,0,0,0.2)] hover:bg-indigo-700"
-                                        }`}
+                                    key={lead._id || index}
+                                    className="p-4 rounded-xl bg-[rgba(0,0,0,0.3)] backdrop-blur-md border border-gray-800"
                                     initial={{ opacity: 0, x: -30 }}
                                     whileInView={{ opacity: 1, x: 0 }}
-                                    viewport={{ once: true }}
                                     transition={{ duration: 0.5, delay: index * 0.1 }}
-                                    whileHover={{ scale: 1.02 }}
-                                    onClick={() => setSelectedLeadership(lead)}
                                 >
-                                    <div className="flex items-center gap-3">
-                                        <span className="text-cyan-400 font-semibold text-sm">
+                                    <button
+                                        onClick={() => setSelectedLeadership(lead)}
+                                        className="flex cursor-pointer  items-center gap-4 w-full text-left"
+                                        aria-label={`Select leadership: ${lead.title || "Untitled"}`}
+                                    >
+                                        <span className="text-cyan-400 font-semibold text-sm bg-cyan-400/10 px-2 py-1 rounded-full">
                                             #{index + 1}
                                         </span>
                                         <div>
-                                            <h3 className="text-lg font-semibold text-gray-100">
-                                                {lead.title}
-                                            </h3>
-                                            <p className="text-gray-500 text-xs">{lead.date}</p>
+                                            <h3 className="text-lg font-semibold text-gray-100">{lead.title || "Untitled"}</h3>
+                                            <p className="text-gray-400 text-xs">{lead.date || "No date"}</p>
                                         </div>
-                                    </div>
+                                    </button>
                                 </motion.div>
-                            ))}
-                        </div>
-                    </div>
-                )}
+                            ))
+                        ) : (
+                            <p className="text-gray-400 text-center">No leadership roles available.</p>
+                        )}
+                    </motion.div>
+
+                    {/* Right: Content Box */}
+                    <motion.div
+                        className="lg:col-span-2 mt-6 lg:mt-0 bg-[rgba(0,0,0,0.3)] backdrop-blur-lg p-3 sm:p-5 rounded-2xl shadow-xl border border-gray-700/30 order-1 lg:order-2"
+                        initial={{ opacity: 0, x: 50 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.6 }}
+                    >
+                        {selectedLeadership ? (
+                            <>
+                                {selectedLeadership.thumbnail && (
+                                    <motion.img
+                                        src={selectedLeadership.thumbnail}
+                                        alt={selectedLeadership.title || "Leadership thumbnail"}
+                                        className="w-full h-40 sm:h-56 object-cover rounded-lg mb-6 shadow-md"
+                                        initial={{ opacity: 0, scale: 0.95 }}
+                                        animate={{ opacity: 1, scale: 1 }}
+                                        transition={{ duration: 0.5 }}
+                                    />
+                                )}
+                                <h3 className="text-xl sm:text-2xl font-bold text-gray-100 mb-3 bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-purple-500">
+                                    {selectedLeadership.title || "Untitled"}
+                                </h3>
+                                {selectedLeadership.subtitle && (
+                                    <h4 className="text-sm font-medium text-cyan-300 mb-4 italic">
+                                        {selectedLeadership.subtitle}
+                                    </h4>
+                                )}
+                                <p className="text-gray-300 text-sm sm:text-base leading-relaxed mb-4">
+                                    {selectedLeadership.description || "No description available."}
+                                </p>
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    {selectedLeadership.date && (
+                                        <p className="text-gray-400 text-xs sm:text-sm">
+                                            <span className="font-semibold text-cyan-400">Date:</span>{" "}
+                                            {selectedLeadership.date}
+                                        </p>
+                                    )}
+                                    {selectedLeadership.duration && (
+                                        <p className="text-gray-400 text-xs sm:text-sm">
+                                            <span className="font-semibold text-cyan-400">Duration:</span>{" "}
+                                            {selectedLeadership.duration}
+                                        </p>
+                                    )}
+                                    {selectedLeadership.role && (
+                                        <p className="text-gray-400 text-xs sm:text-sm">
+                                            <span className="font-semibold text-cyan-400">Role:</span>{" "}
+                                            {selectedLeadership.role}
+                                        </p>
+                                    )}
+                                    {selectedLeadership.achievement && (
+                                        <p className="text-gray-400 text-xs sm:text-sm">
+                                            <span className="font-semibold text-cyan-400">Achievement:</span>{" "}
+                                            {selectedLeadership.achievement}
+                                        </p>
+                                    )}
+                                </div>
+                            </>
+                        ) : (
+                            <p className="text-gray-400 text-center">Select a leadership role to view details.</p>
+                        )}
+                    </motion.div>
+                </div>
             </motion.div>
         </section>
     );

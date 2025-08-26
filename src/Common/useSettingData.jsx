@@ -7,16 +7,22 @@ const useSettingData = () => {
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        axios
-            .get(`${import.meta.env.VITE_BASE_URL}/all_settings`)
-            .then((response) => {
+        const fetchSettings = async () => {
+            try {
+                setLoading(true);
+                const response = await axios.get(
+                    `${import.meta.env.VITE_BASE_URL}/all_settings`
+                );
                 setData(response.data);
+                setError(null);
+            } catch (err) {
+                setError(err.message || "Something went wrong");
+            } finally {
                 setLoading(false);
-            })
-            .catch((error) => {
-                setError(error);
-                setLoading(false);
-            });
+            }
+        };
+
+        fetchSettings();
     }, []);
 
     return { data, loading, error };

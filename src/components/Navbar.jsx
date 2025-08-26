@@ -16,7 +16,7 @@ const Navbar = () => {
 
     return (
         <motion.nav
-            className="fixed w-full z-50 bg-[rgba(0,0,0,0.2)] backdrop-blur-xs text-white"
+            className="fixed w-full overflow-x-hidden z-50 bg-[rgba(0,0,0,0.25)] backdrop-blur-md text-white"
             initial={{ y: -60, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.6, ease: "easeOut" }}
@@ -24,20 +24,22 @@ const Navbar = () => {
             <div className="w-11/12 mx-auto py-4 flex justify-between items-center">
                 {/* Logo */}
                 <motion.h1
-                    className="text-2xl logoText font-extrabold tracking-wide cursor-pointer hover:scale-110 transition-transform bg-gradient-to-r from-blue-600 via-indigo-500 to-purple-600 bg-clip-text text-transparent"
+                    className="text-2xl font-extrabold tracking-wide cursor-pointer hover:scale-110 transition-transform bg-gradient-to-r from-blue-600 via-indigo-500 to-purple-600 bg-clip-text text-transparent"
                     whileHover={{ scale: 1.1 }}
                 >
-                    Tanzim <span className="from-pink-500 via-red-500 to-yellow-500 bg-clip-text text-transparent bg-gradient-to-r">Khan</span>
+                    Tanzim{" "}
+                    <span className="from-pink-500 via-red-500 to-yellow-500 bg-clip-text text-transparent bg-gradient-to-r">
+                        Khan
+                    </span>
                 </motion.h1>
 
-
                 {/* Desktop Menu */}
-                <div className="hidden md:flex space-x-8 font-medium">
+                <div className="hidden md:flex space-x-8 font-medium items-center">
                     {menuItems.map((item, i) => (
                         <motion.a
                             key={i}
                             href={item.link}
-                            className="relative text-white hover:text-blue-600 transition"
+                            className="relative text-white group"
                             whileHover={{ scale: 1.05 }}
                         >
                             {item.name}
@@ -47,7 +49,7 @@ const Navbar = () => {
                 </div>
 
                 {/* Mobile Menu Icon */}
-                <div className="md:hidden text-white" onClick={() => setOpen(!open)}>
+                <div className="md:hidden text-white cursor-pointer" onClick={() => setOpen(!open)}>
                     {open ? <FaTimes size={26} /> : <FaBars size={26} />}
                 </div>
             </div>
